@@ -1,0 +1,17 @@
+
+<form method="POST">
+    {{ form.hidden_tag() }}
+    {{form.nombre.label}} {{form.nombre()}}
+    {{form.email.label}}  {{form.email()}}
+    {{form.password.label}}  {{form.password()}}
+    {{form.rol.label}}  {{form.rol()}}
+    {{form.enviar}}
+</form>
+
+{% if form.name.errors %}
+    <ul class="errors">
+    {% for error in form.name.errors %}
+        <li>{{ error }}</li>
+    {% endfor %}
+    </ul>
+{% endif %}
