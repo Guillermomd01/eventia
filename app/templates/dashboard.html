@@ -1,1 +1,5 @@
-ECHO est  activado.
+<ul>
+    {%for proyecto in lista_proyectos%}
+        <li>{{proyecto.nombre}} - {{proyecto.tipo}} - {{proyecto.estado}}</li>
+    {% endfor %}
+</ul>

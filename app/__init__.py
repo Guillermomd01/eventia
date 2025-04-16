@@ -1,10 +1,10 @@
-from flask import Flask, app ,Blueprint
-from flask_sqlalchemy import SQLAlchemy
-from flask_login import LoginManager
+import os
+basedir = os.path.abspath(os.path.dirname(__file__))
 
+from flask import Flask ,Blueprint
 
-login = LoginManager()
-db = SQLAlchemy()
+from app.models import Usuario
+from app.extensions import db, login
 
 
 def create_app():
@@ -12,7 +12,8 @@ def create_app():
     
     app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///app.db'
     app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-   
+    app.config['UPLOAD_FOLDER'] = os.path.join(basedir,'dataset')
+ 
     db.init_app(app)
     login.init_app(app)
     login.login_view = 'login'
@@ -25,6 +26,10 @@ def create_app():
         db.create_all()
 
     return app
+
+@login.user_loader
+def load_user(user_id):
+    return Usuario.query.get(int(user_id))
 
 
 
