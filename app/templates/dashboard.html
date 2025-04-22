@@ -1,5 +1,26 @@
-<ul>
-    {%for proyecto in lista_proyectos%}
-        <li>{{proyecto.nombre}} - {{proyecto.tipo}} - {{proyecto.estado}}</li>
-    {% endfor %}
-</ul>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Dashboard</title>
+    <style>
+        .lista_proyecto{
+            width: 80%;
+            padding: 20px;
+
+        }
+    </style>
+</head>
+<body>
+    <div class="lista_proyecto">
+        <h2 style ="text-align: center;">
+            Tus proyectos
+        </h2>
+        <ul>
+            {%for proyecto in lista_proyectos%}
+                <li>{{proyecto.nombre}} - {{proyecto.tipo}} - {{proyecto.estado}}</li>
+            {% endfor %}
+        </ul>
+    </div>
+</body>
+</html>
