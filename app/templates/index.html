@@ -3,79 +3,113 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Página de Prueba</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 20px;
-            background-color: #f5f5f5;
-        }
-        .container {
-            max-width: 800px;
-            margin: 0 auto;
-            background-color: white;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-        }
-        header {
-            text-align: center;
-            margin-bottom: 20px;
-            padding-bottom: 10px;
-            border-bottom: 1px solid #eee;
-        }
-        h1 {
-            color: #333;
-        }
-        .content {
-            line-height: 1.6;
-            text-align: center;
-        }
-        .btn-ini {
-            background-color: #4CAF50;
-            color: white;
-            border: none;
-            padding: 10px 15px;
-            border-radius: 4px;
-            cursor: pointer;
-        }
-        .btn-reg {
-            background-color: brown;
-            color: white;
-            border: none;
-            padding: 10px 15px;
-            border-radius: 4px;
-            cursor: pointer;
-
-        }
-        .btn:hover {
-            background-color: #45a049;
-        }
-        footer {
-            margin-top: 20px;
-            text-align: center;
-            color: #666;
-            font-size: 14px;
-        }
-    </style>
+    <link rel="stylesheet" href="{{ url_for('static', filename='index.css') }}">
+    <title>EnvIA</title>
+    
 </head>
 <body>
-    <div class="container">
-        <header>
-            <h1>Agencia de IA</h1>
-        </header>
-        
-        <div class="content">
-            <h2>Iniciar sesión o registrarse</h2>
-            <button class="btn-ini" >Iniciar Sesión</button>
-            <button class="btn-reg" > Registrarse</button>
+    <section class="seccion-hero">
+        <div class="hero">
+            <div class="text-hero">
+                <h1>Impulsamos tu negocio con Inteligencia Artifical</h1>
+                <p class="parrafo">Descubre todos los modelos de IA y ML</p>
+            </div>
+            <div class="img-hero">
+                <img  class="image-hero"src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSo_ZciG_P8FCS0XtrM5J1zVyuK_SpjGClwRqTUYRvomWm7k8s8MQ&s=10&ec=72940545" alt="">
+            </div>
         </div>
+        <div class="hero-buttons">
+            <a class="iniciar" href="">Iniciar Sesión</a>
+            <a class="registro" href="">Regístrate Ahora</a>
         
-        <footer>
-            <p>&copy; 2025 - Agencia de IA</p>
-        </footer>
-    </div>
+        </div>
+    </section>
+    <section class="servicios">
+        <div class="container-serv">
+            <div class="servicios-title">
+                <h2>Nuestros Servicios</h2>
+
+            </div>
+            <div class="servicios-card">
+                <div class="cards">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                        <path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm0 14H5.17L4 17.17V4h16v12z"/>
+                        <path d="M12 15l1.57-3.43L17 10l-3.43-1.57L12 5l-1.57 3.43L7 10l3.43 1.57z"/>
+                    </svg>
+                    <h3>Analisis de sentimientos</h3>
+                    <p>Comprende las opiniones y emociones de tus clientes mediante avanzados algoritmos de procesamiento de lenguaje natural.</p>
+                </div>
+                <div class="cards">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                        <path d="M3.5 18.49l6-6.01 4 4L22 6.92l-1.41-1.41-7.09 7.97-4-4L2 16.99z"/>
+                    </svg>
+                    <h3>Predicción de eventos</h3>
+                    <p>Comprende las opiniones y emociones de tus clientes mediante avanzados algoritmos de procesamiento de lenguaje natural.</p>
+                </div>
+                <div class="cards">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                        <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z"/>
+                        <path d="M13 7h-2v5.414l3.293 3.293 1.414-1.414L13 11.586z"/>
+                    </svg>
+                    <h3>Anomalias</h3>
+                    <p>Comprende las opiniones y emociones de tus clientes mediante avanzados algoritmos de procesamiento de lenguaje natural.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="beneficios">
+        <div class="container-beneficios">
+            <div class="beneficios-title">
+                <h2>Ventajas de trabajar con nosotros</h2>
+            </div>
+            <div class="lista-beneficios">
+                <div class="beneficio">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                        <path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm0 14H5.17L4 17.17V4h16v12z"/>
+                        <path d="M12 15l1.57-3.43L17 10l-3.43-1.57L12 5l-1.57 3.43L7 10l3.43 1.57z"/>
+                    </svg>
+                    <div class="text-beneficio">
+                        <h3>Automatización Inteligente</h3>
+                        <p>Reduce costos operativos y minimiza errores humanos automatizando procesos clave con IA adaptativa que aprende y mejora constantemente.</p>
+                    </div>
+                </div>
+                <div class="beneficio">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                        <path d="M3.5 18.49l6-6.01 4 4L22 6.92l-1.41-1.41-7.09 7.97-4-4L2 16.99z"/>
+                    </svg>
+                    <div class="text-beneficio">
+                        <h3>Resultados en tiempo real</h3>
+                        <p>Obtén insights instantáneos y toma decisiones ágiles con nuestras soluciones que procesan y analizan datos en tiempo real.</p>
+                    </div>
+                </div>
+                <div class="beneficio">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                        <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z"/>
+                        <path d="M13 7h-2v5.414l3.293 3.293 1.414-1.414L13 11.586z"/>
+                    </svg>
+                    <div class="text-beneficio" >
+                        <h3>Fácil Integración</h3>
+                        <p>Implementa nuestras soluciones sin complicaciones gracias a APIs flexibles y herramientas que se integran perfectamente con tus sistemas existentes.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="cta-section" >
+        <div class="container-cta" >
+            <div class="cta">
+                <h2 class="">¿Estás listo para mejorar el rendimiento de tu empresa?</h2>
+                <p class="p-cta">Conecta con nuestros expertos y descubre cómo la inteligencia artificial puede potenciar tu negocio.</p>
+                <div class ="container-button">
+                    <a class="cta-button" href="">Regístrate Ahora</a>
+                </div>
+                
+
+            </div>
+        
+        </div>
+
+    </section>
     
 </body>
 </html>
