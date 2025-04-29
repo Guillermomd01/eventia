@@ -4,7 +4,7 @@ import pandas as pd
 
 def analisis_sentimientos(csv):
     
-    modelo = joblib.load('modelo_entrenado_predicion.pkl')
+    modelo = joblib.load('modelo_entrenado_sentimientos.pkl')
     tfidf = joblib.load('vectorizador_entrenado.pkl')
     
     df = pd.read_csv(csv)
