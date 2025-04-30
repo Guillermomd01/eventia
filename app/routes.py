@@ -1,4 +1,7 @@
 import os
+from app.machine_learning.anomalias import detectar_anomalias
+from app.machine_learning.prediccion import prediccion
+from app.machine_learning.sentimiento import analisis_sentimientos
 from app.models import Dataset, Proyecto, Usuario
 from  app.forms import FormularioDataset, FormularioProyecto, FormularioRegistro,FormularioLogin
 from flask import app, current_app, flash, redirect,render_template,Blueprint, url_for
@@ -92,3 +95,26 @@ def subir_archivo(proyecto_id):
     
     return render_template('archivo_form.html',form=form_archivo)
 
+@bp.route("/resultado-prediccion/<int:dataset_id>",methods=['GET','POST'])
+@login_required
+def resultado_modelo_prediccion(dataset_id):
+    dataset = Dataset.query.get_or_404(dataset_id)
+    ruta = dataset.ruta_archivo
+    resultado = prediccion(ruta)
+    return render_template("resultado_prediccion.html",resultado = resultado) #crear resultado_prediccion.html
+
+@bp.route("/resultado-sentimientos/<int:dataset_id>",methods=(['GET','POST']))
+@login_required
+def resultado_modelo_sentimiento(dataset_id):
+    dataset = Dataset.query.get_or_404(dataset_id)
+    ruta = dataset.ruta_archivo
+    resultado = analisis_sentimientos(ruta)
+    return render_template("resultado-sentimientos.html",resultado = resultado) #crear resultado_sentimientos.html
+
+@bp.route("/resultado-anomalias/<int:dataset_id>",methods=(['GET','POST']))
+@login_required
+def resultado_modelo_anomalias(dataset_id):
+    dataset = Dataset.query.get_or_404(dataset_id)
+    ruta = dataset.ruta_archivo
+    resultado = detectar_anomalias(ruta)
+    return render_template("resultado-anomalias.html",resultado = resultado) #rcrear resultado-anomalias.html
