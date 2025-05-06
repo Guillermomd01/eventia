@@ -4,19 +4,28 @@
     <meta charset="UTF-8">
     <title>Agencia IA</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='index.css') }}">
+    {% block extra_styles %}{% endblock%}
 </head>
 <body>
     <header>
-        <h1>Agencia de Inteligencia Artificial</h1>
-        <nav>
-            {% if current_user.is_authenticated %}
-                <a href="{{ url_for('main.dashboard') }}">Inicio</a>
-                <a href="{{ url_for('main.logout') }}">Cerrar sesión</a>
-            {% else %}
-                <a href="{{ url_for('main.login') }}">Iniciar sesión</a>
-                <a href="{{ url_for('main.registro') }}">Registrarse</a>
-            {% endif %}
-        </nav>
+        <div class="cabecera">
+            <div class="titulo-cabexera">
+                <h1>EnvIA: Agencia de Inteligencia Artificial</h1>
+            </div>
+            <div class="botones">
+                <nav>
+                    {% if current_user.is_authenticated %}
+                        <a href="{{ url_for('main.dashboard') }}" class="layout-btn-inicio">Inicio</a>
+                        <a href="{{ url_for('main.logout') }}" class="layout-btn-cerrar">Cerrar sesión</a>
+                    {% else %}
+                        <a href="{{ url_for('main.login') }}" class="layout-btn-iniciar">Iniciar sesión</a>
+                        <a href="{{ url_for('main.registro') }}" class="layout-btn-registrarse">Registrarse</a>
+                    {% endif %}
+                </nav>
+            </div>
+        
+        </div>
+        
     </header>
 
     <main>

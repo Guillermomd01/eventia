@@ -1,4 +1,4 @@
- 
+
 body{
     background-color:antiquewhite;
 }
@@ -12,9 +12,12 @@ h2{
 .container-proyectos{
     text-align: center;
     align-items: center;
-    
-
+}  
+table{
+    width: 1000px;
+    margin: 0 auto;
 }
+
 .lista-proyectos{
     background-color: aliceblue;
     border-radius: 7px;

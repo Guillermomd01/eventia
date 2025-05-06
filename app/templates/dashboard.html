@@ -1,4 +1,7 @@
 {% extends "layout.html" %}
+{% block extra_styles %}
+<link rel="stylesheet" href="{{ url_for('static', filename='dashboard.css') }}">
+{% endblock %}
 
 {% block content %}
   <div class="container">
@@ -15,10 +18,10 @@
               <th>Acción</th>
             </tr>
           </thead>
-          <tbody>
+          <tbody class="lista-proyectos">
             {% for proyecto in lista_proyectos %}
-              <tr>
-                <td>{{ proyecto.nombre }}</td>
+              <tr class="proyecto-individual">
+                <td class="proyecto-individual">{{ proyecto.nombre }}</td>
                 <td>{{ proyecto.tipo|capitalize }}</td>
                 <td>{{ proyecto.estado|capitalize }}</td>
                 <td>

@@ -1,9 +1,31 @@
+{% block extra_styles %}
+<link rel="stylesheet" href="{{ url_for('static', filename='registro_form.css') }}">
+{% endblock %}
 
-<form method="POST">
-    {{ form.hidden_tag() }}
-    {{form.nombre.label}} {{form.nombre()}}
-    {{form.email.label}}  {{form.email()}}
-    {{form.password.label}}  {{form.password()}}
-    {{form.rol.label}}  {{form.rol()}}
-    {{form.enviar}}
-</form>
+{% block content %}
+<div class="formulario">
+    <h1>Regístrate</h1>
+    <form method="POST">
+        {{ form.hidden_tag() }}
+        <div class="form-group">
+            {{ form.nombre.label }}<br>
+            {{ form.nombre(class="form-control") }}
+        </div>
+        <div class="form-group">
+            {{ form.email.label }}<br>
+            {{ form.email(class="form-control") }}
+        </div>
+        <div class="form-group">
+            {{ form.password.label }}<br>
+            {{ form.password(class="form-control") }}
+        </div>
+        <div class="form-group">
+            {{ form.rol.label }}<br>
+            {{ form.rol(class="form-control") }}
+        </div>
+        <div class="form-group">
+            {{ form.enviar(class="btn-submit") }}
+        </div>
+    </form> 
+</div>
+{% endblock %}

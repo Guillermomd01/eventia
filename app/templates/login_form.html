@@ -1,6 +1,24 @@
-<form method="POST">
-    {{form.hidden_tag()}}
-    {{form.email.label}}  {{form.email()}}
-    {{form.password.label}}  {{form.password()}}
-    {{form.enviar()}}
-</form>
+
+{% block extra_styles %}
+<link rel="stylesheet" href="{{ url_for('static', filename='login_form.css') }}">
+{% endblock %}
+
+{% block content %}
+<div class="formulario">
+    <h1>Iniciar Sesión</h1>
+    <form method="POST">
+        {{form.hidden_tag()}}
+        <div class="form-group">
+            {{ form.email.label }}<br>
+            {{ form.email(class="form-control") }}
+        </div>
+        <div class="form-group">
+            {{ form.password.label }}<br>
+            {{ form.password(class="form-control") }}
+        </div>
+        <div class="form-group">
+            {{ form.enviar(class="btn-submit") }}
+        </div>
+    </form>
+</div>
+{% endblock %}

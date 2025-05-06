@@ -1,5 +1,49 @@
+/*layout css*/
+.cabecera{
+    display: flex;
+    justify-content: space-between; 
+    align-items: center;   
+    padding: 15px;
+}
+.botones{
+    display: flex;
+    gap: 10px;
+}
+.layout-btn-inicio{
+    text-decoration: none;
+    background-color: blanchedalmond;
+    padding: 5px;
+    border-radius: 7px;
+    margin: 5px;
+}
+.layout-btn-cerrar{
+    text-decoration: none;
+    background-color: blanchedalmond;
+    padding: 5px;
+    border-radius: 7px;
+    margin: 5px;
+}
+.layout-btn-iniciar{
+    text-decoration: none;
+    background-color: blanchedalmond;
+    padding: 5px;
+    border-radius: 7px;
+    margin: 5px;
+}
+.layout-btn-registrarse{
+    text-decoration: none;
+    background-color: blanchedalmond;
+    padding: 5px;
+    border-radius: 7px;
+    margin: 5px;
+}
 
+footer{
+    text-align: center;
+    font-size: larger;
+}
 
+/*css comun index*/
 * {
     margin: 0;
     padding: 0;
@@ -7,6 +51,7 @@
     font-family: 'Segoe UI', system-ui, sans-serif;
 }
 
+/*seccion hero*/
 .seccion-hero{
     height: 100vh;
     background: linear-gradient(blue,purple);
@@ -27,6 +72,7 @@
     text-align: left;
     justify-content: left;
     width:50%;
+    font-size: xx-large;
 }
 .img-hero{
     align-items: center;
@@ -70,13 +116,15 @@
     margin: 10px;
     align-items: center;
 }
+
+/*seccion servicios*/
 .servicios{
     width: 980px;
+    margin: 0 auto;
     
 }
 .container-serv{
     margin-top: 45px;
-    margin-bottom: 45px;
     height:60vh;
     margin-left: 20px;
     margin-right: 20px;
@@ -109,12 +157,14 @@ p{
     margin-top: 7px;
 }
 
+/*seccion beneficios*/
 .beneficios{
     background-color: azure;
     padding-top: 45px;
     height:80vh;
     padding-left: 20px;
     padding-right: 20px;
+    
 }
 .beneficios-title{
     text-align: center;
@@ -122,12 +172,15 @@ p{
 }
 .beneficio{
     display: flex;
+    margin: 0 auto;
+    width: 980px;
 }
 .text-beneficio{
     margin-left: 20px;
     margin-bottom: 50px;
 }
 
+/*seccion cta*/
 .cta-section{
     background: linear-gradient(purple,blue);
     padding-top: 45px;
