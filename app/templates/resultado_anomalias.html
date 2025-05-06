@@ -1,0 +1,29 @@
+{% extends "layout.html" %}
+
+{% block content %}
+  <h2>Detección de Anomalías</h2>
+
+  {% if resultado is not none and not resultado.empty %}
+    <p>Se han detectado las siguientes filas anómalas en tu dataset:</p>
+    <table border="1">
+      <thead>
+        <tr>
+          {% for col in resultado.columns %}
+            <th>{{ col }}</th>
+          {% endfor %}
+        </tr>
+      </thead>
+      <tbody>
+        {% for fila in resultado.values %}
+          <tr>
+            {% for val in fila %}
+              <td>{{ val }}</td>
+            {% endfor %}
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  {% else %}
+    <p>No se detectaron anomalías en el conjunto de datos.</p>
+  {% endif %}
+{% endblock %}

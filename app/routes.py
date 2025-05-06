@@ -5,7 +5,7 @@ from app.machine_learning.sentimiento import analisis_sentimientos
 from app.models import Dataset, Proyecto, Usuario
 from  app.forms import FormularioDataset, FormularioProyecto, FormularioRegistro,FormularioLogin
 from flask import app, current_app, flash, redirect,render_template,Blueprint, url_for
-from flask_login import login_required, login_user,current_user
+from flask_login import login_required, login_user,current_user,logout_user
 from app.extensions import login,db
 from werkzeug.utils import secure_filename
 
@@ -20,7 +20,12 @@ def home():
 def registro():
     form_registro = FormularioRegistro()
     if form_registro.validate_on_submit():
+        usuario_existente = Usuario.query.filter_by(email=form_registro.email.data).first()
+        if usuario_existente:
+            flash('Ese correo ya está registrado. Prueba con otro.', 'warning')
+            return redirect(url_for('main.registro'))
         nuevo_usuario = Usuario(nombre=form_registro.nombre.data ,email=form_registro.email.data, rol= form_registro.rol.data)
+        
         nuevo_usuario.set_password(form_registro.password.data)
         db.session.add(nuevo_usuario)
         db.session.commit()
@@ -45,12 +50,18 @@ def login():
     
     return render_template("login_form.html",form= form_login)
 
+@bp.route("/logout")
+@login_required
+def logout():
+    logout_user() 
+    return redirect(url_for('main.login'))
+
 @bp.route("/dashboard")
 @login_required
 def dashboard():
     proyectos_usuario = Proyecto.query.filter_by(usuario_id=current_user.id).order_by(Proyecto.fecha.desc())
     
-    return render_template("dashboard.html",user = current_user.nombre,lista_proyectos = proyectos_usuario)
+    return render_template("dashboard.html",user = current_user.nombre,lista_proyectos = proyectos_usuario,)
 
 @bp.route("/crear-proyecto",methods=['GET','POST'])
 @login_required
@@ -109,12 +120,12 @@ def resultado_modelo_sentimiento(dataset_id):
     dataset = Dataset.query.get_or_404(dataset_id)
     ruta = dataset.ruta_archivo
     resultado = analisis_sentimientos(ruta)
-    return render_template("resultado-sentimientos.html",resultado = resultado) #crear resultado_sentimientos.html
+    return render_template("resultado_sentimientos.html",resultado = resultado) #crear resultado_sentimientos.html
 
 @bp.route("/resultado-anomalias/<int:dataset_id>",methods=(['GET','POST']))
 @login_required
 def resultado_modelo_anomalias(dataset_id):
     dataset = Dataset.query.get_or_404(dataset_id)
     ruta = dataset.ruta_archivo
-    resultado = detectar_anomalias(ruta)
-    return render_template("resultado-anomalias.html",resultado = resultado) #rcrear resultado-anomalias.html
+    completo,anomalias = detectar_anomalias(ruta)
+    return render_template("resultado_anomalias.html",resultado = anomalias) #rcrear resultado-anomalias.html

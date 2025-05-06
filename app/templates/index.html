@@ -1,13 +1,7 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="{{ url_for('static', filename='index.css') }}">
-    <title>EnvIA</title>
-    
-</head>
-<body>
+
+{% extends 'layout.html' %}
+
+{% block content %}
     <section class="seccion-hero">
         <div class="hero">
             <div class="text-hero">
@@ -19,8 +13,8 @@
             </div>
         </div>
         <div class="hero-buttons">
-            <a class="iniciar" href="">Iniciar Sesión</a>
-            <a class="registro" href="">Regístrate Ahora</a>
+            <a  href="{{url_for('main.login')}}" class="iniciar">Iniciar Sesión</a>
+            <a  href="{{url_for('main.registro')}}" class="registro">Regístrate Ahora</a>
         
         </div>
     </section>
@@ -110,6 +104,4 @@
         </div>
 
     </section>
-    
-</body>
-</html>
+{% endblock %}

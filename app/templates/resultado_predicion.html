@@ -1,0 +1,28 @@
+{% extends "layout.html" %}
+
+{% block content %}
+  <h2>Predicción de ventas futuras</h2>
+
+  {% if resultado is not none and not resultado.empty %}
+    <table border="1">
+      <thead>
+        <tr>
+          {% for col in resultado.columns %}
+            <th>{{ col }}</th>
+          {% endfor %}
+        </tr>
+      </thead>
+      <tbody>
+        {% for row in resultado.values %}
+          <tr>
+            {% for val in row %}
+              <td>{{ val }}</td>
+            {% endfor %}
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  {% else %}
+    <p>No se encontraron datos de predicción.</p>
+  {% endif %}
+{% endblock %}

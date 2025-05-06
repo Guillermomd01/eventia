@@ -1,4 +1,4 @@
-from datetime import datetime
+from datetime import datetime,timezone
 from sqlalchemy import Column, ForeignKey, Integer, String 
 from app.extensions import db,login
 from werkzeug.security import generate_password_hash, check_password_hash
@@ -14,7 +14,7 @@ class Usuario(UserMixin,db.Model):
     email = Column(String, nullable=False,unique=True)
     password_hash = Column(String(128),nullable=False )
     rol = Column(String(10), nullable=False)
-    proyectos = db.relationship('Proyecto',backref = 'usuario',lazy='True')
+    proyectos = db.relationship('Proyecto',backref = 'usuario',lazy='select')
     
     def set_password(self,password):
         self.password_hash = generate_password_hash(password)
@@ -29,7 +29,7 @@ class Proyecto (db.Model):
     id = Column(Integer,primary_key=True)
     nombre = Column(String,nullable=False)
     tipo = Column(String,nullable=False)
-    fecha= Column(db.DateTime,default = datetime.now(datetime.timezone.utc))
+    fecha= Column(db.DateTime,default = datetime.now(timezone.utc))
     estado = Column(String,nullable= False,default='Pendiente')
     usuario_id = Column(Integer,ForeignKey('Usuarios.id'))
     
@@ -40,5 +40,5 @@ class Dataset(db.Model):
     id = Column(Integer,autoincrement=True,primary_key=True)
     nombre_archivo = Column(String,nullable=False)
     ruta_archivo = Column(String,nullable=False)
-    fecha_subida = Column(db.DateTime,default=datetime.now(datetime.timezone.utc))
+    fecha_subida = Column(db.DateTime,default=datetime.now(timezone.utc))
     proyecto_id = Column(Integer,ForeignKey('Proyectos.id'))

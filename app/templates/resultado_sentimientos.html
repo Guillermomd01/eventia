@@ -1,0 +1,26 @@
+{% extends "layout.html" %}
+
+{% block content %}
+  <h2>Análisis de Sentimientos</h2>
+
+  {% if resultado %}
+    <table border="1">
+      <thead>
+        <tr>
+          <th>Sentimiento</th>
+          <th>Ocurrencias</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for sentimiento, cantidad in resultado.items() %}
+          <tr>
+            <td>{{ sentimiento }}</td>
+            <td>{{ cantidad }}</td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  {% else %}
+    <p>No se encontraron datos de sentimiento.</p>
+  {% endif %}
+{% endblock %}

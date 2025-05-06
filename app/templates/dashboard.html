@@ -1,59 +1,45 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    
-    <title>Dashboard</title>
-    <style>
-        body{
-            background-color:antiquewhite;
-        }
-        h2{
-            text-align: center;
-        }
-        .post-titulo{
-            text-align: center;
-        }
-        
-        .container-proyectos{
-            text-align: center;
-            align-items: center;
-            
+{% extends "layout.html" %}
 
-        }
-        .lista-proyectos{
-            background-color: aliceblue;
-            border-radius: 7px;
-            border-color: black;
-            border-style: solid;
-            box-shadow:inset 0px 0px 10px 0 rgba(20, 20, 20, 0.2);
-        }
-        .proyecto-individual{
-            margin-top: 10px;
-            margin-bottom: 10px;
-            padding-top: 10px;
-            padding-bottom: 10px;
-            background-color:rgb(189, 192, 255);
-            
-            border-radius: 7px;
-            list-style:none;
-        }
-    </style>
-</head>
-<body>
-    <div class="container">
-        <div class="titulo">
-            <h2>Tus Proyectos</h2>
-            <p class="post-titulo">Aquí encontgrarás todos los proyectos que has realizado usando nuestros modelos de Machine Learning</p>
-                <div class="container-proyectos">
-                    <ul class="lista-proyectos">
-                        {%for proyecto in lista_proyectos%}
-                            <li class="proyecto-individual">{{proyecto.nombre}} - {{proyecto.tipo}} - {{proyecto.estado}}</li>
-                        {% endfor %}
-                    </ul>
-                </div>
-        </div>
+{% block content %}
+  <div class="container">
+    <div class="titulo">
+      <h2>Tus Proyectos</h2>
+      <p class="post-titulo">Aquí encontrarás todos los proyectos y podrás ejecutar el modelo de IA correspondiente.</p>
+      <div class="container-proyectos">
+        <table border="1">
+          <thead>
+            <tr>
+              <th>Nombre</th>
+              <th>Tipo</th>
+              <th>Estado</th>
+              <th>Acción</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for proyecto in lista_proyectos %}
+              <tr>
+                <td>{{ proyecto.nombre }}</td>
+                <td>{{ proyecto.tipo|capitalize }}</td>
+                <td>{{ proyecto.estado|capitalize }}</td>
+                <td>
+                  {% if proyecto.dataset %}
+                    {% if proyecto.tipo == 'sentimiento' %}
+                      <a href="{{ url_for('main.resultado_modelo_sentimiento', dataset_id=proyecto.dataset.id) }}">Análisis de Sentimientos</a>
+                    {% elif proyecto.tipo == 'prediccion' %}
+                      <a href="{{ url_for('main.resultado_modelo_prediccion', dataset_id=proyecto.dataset.id) }}">Predicción de Ventas</a>
+                    {% elif proyecto.tipo == 'anomalias' %}
+                      <a href="{{ url_for('main.resultado_modelo_anomalias', dataset_id=proyecto.dataset.id) }}">Detección de Anomalías</a>
+                    {% endif %}
+                  {% else %}
+                    <a href="{{ url_for('main.subir_archivo', proyecto_id=proyecto.id) }}">Subir CSV</a>
+                  {% endif %}
+                </td>
+              </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
     </div>
-</body>
-</html>
+  </div>
+{% endblock %}
+
