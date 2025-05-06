@@ -29,7 +29,7 @@ class Proyecto (db.Model):
     id = Column(Integer,primary_key=True)
     nombre = Column(String,nullable=False)
     tipo = Column(String,nullable=False)
-    fecha= Column(db.DateTime,default = datetime.utcnow)
+    fecha= Column(db.DateTime,default = datetime.now(datetime.timezone.utc))
     estado = Column(String,nullable= False,default='Pendiente')
     usuario_id = Column(Integer,ForeignKey('Usuarios.id'))
     
@@ -40,5 +40,5 @@ class Dataset(db.Model):
     id = Column(Integer,autoincrement=True,primary_key=True)
     nombre_archivo = Column(String,nullable=False)
     ruta_archivo = Column(String,nullable=False)
-    fecha_subida = Column(db.DateTime,default=datetime.utcnow)
+    fecha_subida = Column(db.DateTime,default=datetime.now(datetime.timezone.utc))
     proyecto_id = Column(Integer,ForeignKey('Proyectos.id'))

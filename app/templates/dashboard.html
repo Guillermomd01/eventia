@@ -1,26 +1,59 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
     <title>Dashboard</title>
     <style>
-        .lista_proyecto{
-            width: 80%;
-            padding: 20px;
+        body{
+            background-color:antiquewhite;
+        }
+        h2{
+            text-align: center;
+        }
+        .post-titulo{
+            text-align: center;
+        }
+        
+        .container-proyectos{
+            text-align: center;
+            align-items: center;
+            
 
+        }
+        .lista-proyectos{
+            background-color: aliceblue;
+            border-radius: 7px;
+            border-color: black;
+            border-style: solid;
+            box-shadow:inset 0px 0px 10px 0 rgba(20, 20, 20, 0.2);
+        }
+        .proyecto-individual{
+            margin-top: 10px;
+            margin-bottom: 10px;
+            padding-top: 10px;
+            padding-bottom: 10px;
+            background-color:rgb(189, 192, 255);
+            
+            border-radius: 7px;
+            list-style:none;
         }
     </style>
 </head>
 <body>
-    <div class="lista_proyecto">
-        <h2 style ="text-align: center;">
-            Tus proyectos
-        </h2>
-        <ul>
-            {%for proyecto in lista_proyectos%}
-                <li>{{proyecto.nombre}} - {{proyecto.tipo}} - {{proyecto.estado}}</li>
-            {% endfor %}
-        </ul>
+    <div class="container">
+        <div class="titulo">
+            <h2>Tus Proyectos</h2>
+            <p class="post-titulo">Aquí encontgrarás todos los proyectos que has realizado usando nuestros modelos de Machine Learning</p>
+                <div class="container-proyectos">
+                    <ul class="lista-proyectos">
+                        {%for proyecto in lista_proyectos%}
+                            <li class="proyecto-individual">{{proyecto.nombre}} - {{proyecto.tipo}} - {{proyecto.estado}}</li>
+                        {% endfor %}
+                    </ul>
+                </div>
+        </div>
     </div>
 </body>
 </html>
