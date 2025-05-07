@@ -13,8 +13,16 @@ from app.extensions import db, login
 def create_app():
     app = Flask(__name__,template_folder='templates')
     
+    # Define el directorio base
+    BASE_DIR = os.path.abspath(os.path.dirname(__file__))
+
+    # Configura la carpeta de subidas
+    app.config['UPLOAD_FOLDER'] = os.path.join(BASE_DIR, 'static', 'uploads')
+    
+    #configura la clave secreta
     app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY', 'clave_segura')
     
+    #configura la base de datos
     app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///app.db'
     app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
     app.config['UPLOAD_FOLDER'] = os.path.join(basedir,'dataset')

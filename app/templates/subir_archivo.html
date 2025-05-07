@@ -1,4 +1,6 @@
-<h2>Subir archivo</h2>
+<h2>Subir archivo para el proyecto: <strong>{{ proyecto.nombre }}</strong></h2>
+<p>Tipo de modelo: <em>{{ proyecto.tipo }}</em></p>
+<hr>
 
 <form method="POST" enctype="multipart/form-data">
     {{ form.hidden_tag() }}
@@ -7,11 +9,9 @@
         {{ form.nombre.label }}<br>
         {{ form.nombre() }}
     </p>
-
     <p>
         {{ form.archivo.label }}<br>
-        {{ form.archivo() }}
+        {{ form.archivo()}}
     </p>
-
     <p>{{ form.enviar() }}</p>
-</form>
+</form> 

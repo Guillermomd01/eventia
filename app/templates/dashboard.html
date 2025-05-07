@@ -8,6 +8,10 @@
     <div class="titulo">
       <h2>Tus Proyectos</h2>
       <p class="post-titulo">Aquí encontrarás todos los proyectos y podrás ejecutar el modelo de IA correspondiente.</p>
+      <div>
+        <a href="{{url_for('main.nuevo_proyecto')}}"class="btn-subir">Crear Proyecto</a>
+
+      </div>
       <div class="container-proyectos">
         <table border="1">
           <thead>
@@ -22,19 +26,19 @@
             {% for proyecto in lista_proyectos %}
               <tr class="proyecto-individual">
                 <td class="proyecto-individual">{{ proyecto.nombre }}</td>
-                <td>{{ proyecto.tipo|capitalize }}</td>
-                <td>{{ proyecto.estado|capitalize }}</td>
+                <td>{{ proyecto.tipo | capitalize }}</td>
+                <td>{{ proyecto.estado | capitalize }}</td>
                 <td>
-                  {% if proyecto.dataset %}
+                  {% if proyecto.dataset and proyecto.estado == 'completado' %}
                     {% if proyecto.tipo == 'sentimiento' %}
-                      <a href="{{ url_for('main.resultado_modelo_sentimiento', dataset_id=proyecto.dataset.id) }}">Análisis de Sentimientos</a>
+                      <a href="{{ url_for('main.resultado_modelo_sentimiento', dataset_id=proyecto.dataset.id) }}">Ver proyecto</a>
                     {% elif proyecto.tipo == 'prediccion' %}
-                      <a href="{{ url_for('main.resultado_modelo_prediccion', dataset_id=proyecto.dataset.id) }}">Predicción de Ventas</a>
+                      <a href="{{ url_for('main.resultado_modelo_prediccion', dataset_id=proyecto.dataset.id) }}">Ver proyecto</a>
                     {% elif proyecto.tipo == 'anomalias' %}
-                      <a href="{{ url_for('main.resultado_modelo_anomalias', dataset_id=proyecto.dataset.id) }}">Detección de Anomalías</a>
+                      <a href="{{ url_for('main.resultado_modelo_anomalias', dataset_id=proyecto.dataset.id) }}">Ver proyecto</a>
                     {% endif %}
                   {% else %}
-                    <a href="{{ url_for('main.subir_archivo', proyecto_id=proyecto.id) }}">Subir CSV</a>
+                    <a href="{{ url_for('main.subir_archivo', proyecto_id=proyecto.id) }}">Subir archivo</a>
                   {% endif %}
                 </td>
               </tr>

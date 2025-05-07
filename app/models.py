@@ -32,6 +32,7 @@ class Proyecto (db.Model):
     fecha= Column(db.DateTime,default = datetime.now(timezone.utc))
     estado = Column(String,nullable= False,default='Pendiente')
     usuario_id = Column(Integer,ForeignKey('Usuarios.id'))
+    dataset = db.relationship('Dataset', backref='proyecto',uselist=False)
     
 class Dataset(db.Model):
     __tablename__ = 'Dataset'

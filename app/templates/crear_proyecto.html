@@ -1,0 +1,15 @@
+<h2>Crea Proyecto</h2>
+
+<form method="POST" enctype="multipart/form-data">
+    {{ form.hidden_tag() }}
+
+    <p>
+        {{ form.nombre.label }}<br>
+        {{ form.nombre() }}
+    </p>
+    <p>
+        {{ form.tipo.label }}<br>
+        {{ form.tipo()}}
+    </p>
+    <p>{{ form.enviar() }}</p>
+</form>
