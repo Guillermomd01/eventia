@@ -1,1 +1,18 @@
- 
+h2{
+    text-align: center;
+}
+
+.fila-anomalia {
+    background-color: #ffd6d6; /* rojo claro */
+    font-weight: bold;
+}
+.div-principal{
+    display: flex;
+}
+.div-izq{
+    width: 50%;
+    text-align: left;
+}
+.filas-tabla-anomalia{
+    font-weight: bold;
+}

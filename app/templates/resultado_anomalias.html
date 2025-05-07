@@ -1,50 +1,57 @@
 {% extends "layout.html" %}
 
 {% block extra_styles%}
-<link rel="stylesheet" href="resultado_anomalias.css">
+<link rel="stylesheet" href="{{url_for('static',filename='resultado_anomalias.css')}}">
 {% endblock%}
 
 {% block content %}
   <h2>Detección de Anomalías</h2>
-  <table border="1">
-    <thead>
-      <tr>
-        {% for col in original.columns %}
-          <th>{{ col }}</th>
-        {% endfor %}
-      </tr>
-    </thead>
-    <tbody>
-      {% for fila in original.values %}
-        <tr>
-          {% for val in fila %}
-            <td>{{ val }}</td>
-          {% endfor %}
-        </tr>
-      {% endfor %}
-    </tbody>
-  </table>
-  {% if resultado is not none and not resultado.empty %}
-    <p>Se han detectado las siguientes filas anómalas en tu dataset:</p>
-    <table border="1">
-      <thead>
-        <tr>
-          {% for col in resultado.columns %}
-            <th>{{ col }}</th>
-          {% endfor %}
-        </tr>
-      </thead>
-      <tbody>
-        {% for fila in resultado.values %}
+  <div class="div-principal">
+    <div class="div-izq">
+      <table border="1" class="tabla-normal">
+        <thead>
           <tr>
-            {% for val in fila %}
-              <td>{{ val }}</td>
+            {% for col in original.columns %}
+              <th>{{ col }}</th>
             {% endfor %}
           </tr>
-        {% endfor %}
-      </tbody>
-    </table>
-  {% else %}
-    <p>No se detectaron anomalías en el conjunto de datos.</p>
-  {% endif %}
+        </thead>
+        <tbody>
+          {% for fila in original.values %}
+            {% set contiene_si = 'Sí' in fila %}
+            <tr class="{% if contiene_si %}fila-anomalia{% endif %}">
+              {% for val in fila %}
+                <td>{{ val }}</td>
+              {% endfor %}
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+    {% if resultado is not none and not resultado.empty %}
+    <div class="div-drch">
+      <p>Se han detectado las siguientes filas anómalas en tu dataset:</p>
+      <table border="1" class="tabla-ml">
+        <thead>
+          <tr>
+            {% for col in resultado.columns %}
+              <th>{{ col }}</th>
+            {% endfor %}
+          </tr>
+        </thead>
+        <tbody>
+          {% for fila in resultado.values %}
+            <tr>
+              {% for val in fila %}
+                <td class="filas-tabla-anomalia">{{ val }}</td>
+              {% endfor %}
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    {% else %}
+      <p>No se detectaron anomalías en el conjunto de datos.</p>
+    {% endif %}
+    </div>
+  </div>
 {% endblock %}
