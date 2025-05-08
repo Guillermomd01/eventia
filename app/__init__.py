@@ -25,7 +25,6 @@ def create_app():
     #configura la base de datos
     app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///app.db'
     app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-    app.config['UPLOAD_FOLDER'] = os.path.join(basedir,'dataset')
  
     db.init_app(app)
     login.init_app(app)
