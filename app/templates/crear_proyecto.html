@@ -1,15 +1,28 @@
-<h2>Crea Proyecto</h2>
+{% extends "layout.html"%}
+{% block extra_styles %}
+<link rel="stylesheet" href="{{ url_for('static',filename='crear_proyecto.css') }}">
+{% endblock %}
 
-<form method="POST" enctype="multipart/form-data">
-    {{ form.hidden_tag() }}
+{% block content %}
+<div class="formulario">
+    <h1>Crear Proyecto</h1>
+    <form method="POST" enctype="multipart/form-data">
+        {{ form.hidden_tag() }}
 
-    <p>
-        {{ form.nombre.label }}<br>
-        {{ form.nombre() }}
-    </p>
-    <p>
-        {{ form.tipo.label }}<br>
-        {{ form.tipo()}}
-    </p>
-    <p>{{ form.enviar() }}</p>
-</form>
+        <div class="form-group">
+            {{ form.nombre.label }}<br>
+            {{ form.nombre(class="form-control") }}
+        </div>
+
+        <div class="form-group">
+            {{ form.tipo.label }}<br>
+            {{ form.tipo(class="form-control") }}
+        </div>
+
+        <div class="form-group">
+            {{ form.enviar(class="btn-submit") }}
+        </div>
+    </form>
+</div>
+
+{% endblock%}
