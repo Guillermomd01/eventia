@@ -1,17 +1,41 @@
-<h2>Subir archivo para el proyecto: <strong>{{ proyecto.nombre }}</strong></h2>
-<p>Tipo de modelo: <em>{{ proyecto.tipo }}</em></p>
-<hr>
+{% extends 'layout.html' %}
+{% block extra_styles %}
+<link rel="stylesheet" href="{{ url_for('static',filename='subir_archivo.css') }}">
+{% endblock %}
 
-<form method="POST" enctype="multipart/form-data">
-    {{ form.hidden_tag() }}
+{% block content %}
+<div class="formulario">
+    <h1>Subir archivo para el proyecto: <strong>{{ proyecto.nombre }}</strong></h1>
+    <p>Tipo de modelo: <em>{{ proyecto.tipo }}</em></p>
+    <h3>Recuerda:</h3>
 
-    <p>
-        {{ form.nombre.label }}<br>
-        {{ form.nombre() }}
-    </p>
-    <p>
-        {{ form.archivo.label }}<br>
-        {{ form.archivo()}}
-    </p>
-    <p>{{ form.enviar() }}</p>
-</form> 
+    {% if proyecto.tipo == 'prediccion' %}
+        <p>Columna obligatoria: <strong>fecha</strong></p>
+        <p>Columna obligatoria: <strong>ventas</strong> (o que la columna objetivo esté al final)</p>
+    {% elif proyecto.tipo == 'sentimiento' %}
+        <p>Una columna que contenga texto (comentarios, reseñas, etc.)</p>
+    {% else %}
+        <p>Al menos una columna numérica</p>
+    {% endif %}
+
+    <hr>
+
+    <form method="POST" enctype="multipart/form-data">
+        {{ form.hidden_tag() }}
+
+        <div class="form-group">
+            {{ form.nombre.label }}<br>
+            {{ form.nombre(class="form-control") }}
+        </div>
+
+        <div class="form-group">
+            {{ form.archivo.label }}<br>
+            {{ form.archivo(class="form-control") }}
+        </div>
+
+        <div class="form-group">
+            {{ form.enviar(class="btn-submit") }}
+        </div>
+    </form> 
+</div>
+{% endblock %}

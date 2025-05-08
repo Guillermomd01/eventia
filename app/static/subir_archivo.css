@@ -1,0 +1,55 @@
+
+.formulario {
+    width: 400px;
+    margin: 40px auto;
+    padding: 20px;
+    background-color: #fffaf0;
+    border-radius: 10px;
+    box-shadow: 0 0 15px rgba(0,0,0,0.1);
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.formulario h1 {
+    text-align: center;
+    color: #333;
+    margin-bottom: 15px;
+}
+
+.formulario p {
+    font-size: 0.95rem;
+    color: #555;
+}
+
+.formulario hr {
+    margin: 20px 0;
+}
+
+.form-group {
+    margin-bottom: 15px;
+    text-align: left;
+}
+
+.form-control {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box;
+    font-size: 1rem;
+}
+
+.btn-submit {
+    width: 100%;
+    padding: 10px;
+    background-color: #2a9d8f;
+    color: white;
+    font-weight: bold;
+    border: none;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+    cursor: pointer;
+}
+
+.btn-submit:hover {
+    background-color: #21867a;
+}
