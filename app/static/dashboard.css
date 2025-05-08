@@ -2,6 +2,10 @@
 body{
     background-color:antiquewhite;
 }
+.container{
+    display: block;
+    text-align: center;
+}
 h2{
     text-align: center;
 }
@@ -9,6 +13,19 @@ h2{
     text-align: center;
 }
 
+.div-btn{
+    margin-top: 25px;
+    margin-bottom: 25px;
+}
+.btn-subir{
+    color: aliceblue;
+    padding: 5px;
+    text-decoration: none;
+    background-color: blueviolet;
+    border-radius: 7px;
+    border-style: solid;
+    border-color: blueviolet;
+}
 .container-proyectos{
     text-align: center;
     align-items: center;
