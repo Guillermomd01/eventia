@@ -11,17 +11,19 @@
 }
 .layout-btn-inicio{
     text-decoration: none;
-    background-color: blanchedalmond;
+    background-color: rgb(95, 73, 236);
     padding: 5px;
     border-radius: 7px;
     margin: 5px;
+    color: aliceblue;
 }
 .layout-btn-cerrar{
     text-decoration: none;
-    background-color: blanchedalmond;
+    background-color: rgb(150, 23, 131);
     padding: 5px;
     border-radius: 7px;
     margin: 5px;
+    color: aliceblue;
 }
 .layout-btn-iniciar{
     text-decoration: none;
