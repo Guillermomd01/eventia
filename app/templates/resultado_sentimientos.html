@@ -1,10 +1,14 @@
 {% extends "layout.html" %}
 
+{% block extra_styles %}
+<link rel="stylesheet" href="{{url_for('static',filename='resultado_sentimientos.css') }}">
+{% endblock %}
+
 {% block content %}
   <h2>Análisis de Sentimientos</h2>
 
-  {% if resultado %}
-    <table border="1">
+  <div class="contenedor-centrado">
+    <table class="sentimientos-table">
       <thead>
         <tr>
           <th>Sentimiento</th>
@@ -13,14 +17,21 @@
       </thead>
       <tbody>
         {% for sentimiento, cantidad in resultado.items() %}
-          <tr>
-            <td>{{ sentimiento }}</td>
+          <tr class="sentimiento-{{ sentimiento }}">
+            <td>
+              {% if sentimiento == 'P' %} 😊
+              {% elif sentimiento == 'N' %} 😞
+              {% elif sentimiento == 'NEU' %} 😐
+              {% endif %}
+              {{ sentimiento }}
+            </td>
             <td>{{ cantidad }}</td>
           </tr>
         {% endfor %}
       </tbody>
     </table>
-  {% else %}
-    <p>No se encontraron datos de sentimiento.</p>
-  {% endif %}
+
+    <p><strong>Índice:</strong> 😊 P = Positivo, 😞 N = Negativo, 😐 NEU = Neutro</p>
+  </div>
 {% endblock %}
+
