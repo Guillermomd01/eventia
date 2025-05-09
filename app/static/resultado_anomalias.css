@@ -1,18 +1,63 @@
-h2{
+
+h2 {
+    text-align: center;
+    margin-bottom: 20px;
+    color: #333;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.div-principal {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    padding: 20px;
+    flex-wrap: wrap;
+}
+
+.div-izq,
+.div-drch {
+    width: 45%;
+    min-width: 350px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+th {
+    background-color: #4CAF50;
+    color: white;
+    padding: 8px;
     text-align: center;
 }
 
+td {
+    padding: 8px;
+    text-align: center;
+    background-color: #f9f9f9;
+    border-bottom: 1px solid #ddd;
+}
+
+tr:nth-child(even) td {
+    background-color: #f1f1f1;
+}
+
 .fila-anomalia {
-    background-color: #ffd6d6; /* rojo claro */
+    background-color: #ffe4e4 !important;
     font-weight: bold;
 }
-.div-principal{
-    display: flex;
-}
-.div-izq{
-    width: 50%;
-    text-align: left;
-}
-.filas-tabla-anomalia{
+
+.filas-tabla-anomalia {
     font-weight: bold;
+    color: #c62828;
+}
+
+p {
+    text-align: center;
+    font-size: 0.95rem;
+    color: #555;
+    margin-bottom: 15px;
 }
