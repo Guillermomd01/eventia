@@ -1,2 +1,46 @@
-"venv/" 
-.env
+# Entorno virtual
+venv/
+.env/
+*.env
+.env.*
+
+# Archivos Python compilados
+__pycache__/
+*.py[cod]
+*.pyo
+
+# Archivos de configuración de editores
+.vscode/
+.idea/
+*.swp
+
+# Archivos temporales del sistema
+.DS_Store
+Thumbs.db
+
+# Archivos y carpetas de subida de usuario
+/static/uploads/*
+!/static/uploads/.gitkeep
+
+# Archivos de base de datos
+*.sqlite3
+*.db
+*.db-journal
+
+# Logs
+*.log
+
+# Archivos de Jupyter
+.ipynb_checkpoints
+
+# Archivos de modelos de ML
+*.pkl
+*.joblib
+*.h5
+
+# Cachés de Flask
+instance/
+*.cache
+
+# Archivos CSV de prueba
+*.csv
