@@ -1,5 +1,9 @@
 {% extends "layout.html" %}
 
+{% block extra_styles %}
+<link rel="stylesheet" href="{{ url_for('static',filename='resultado_predicion.css') }}">
+{% endblock %}
+
 {% block content %}
   <h2>Predicción de ventas futuras</h2>
 
