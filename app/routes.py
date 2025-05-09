@@ -132,7 +132,7 @@ def resultado_modelo_prediccion(dataset_id):
     dataset = Dataset.query.get_or_404(dataset_id)
     ruta = os.path.join(current_app.config['UPLOAD_FOLDER'], dataset.ruta_archivo)
     resultado = prediccion(ruta)
-    return render_template("resultado_prediccion.html",resultado = resultado) #crear resultado_prediccion.html
+    return render_template("resultado_predicion.html",resultado = resultado) #crear resultado_prediccion.html
 
 @bp.route("/resultado-sentimientos/<int:dataset_id>",methods=(['GET','POST']))
 @login_required
