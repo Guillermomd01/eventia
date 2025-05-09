@@ -1,10 +1,12 @@
 from sklearn.linear_model import LinearRegression
 import pandas as pd
+import numpy as np
 from sklearn.model_selection import train_test_split
 
 def transformar_fechas(df):
     df = df.copy()
-    df = df.sort_values('fecha')  # por si viene desordenado
+    df['fecha'] = pd.to_datetime(df['fecha'], errors='coerce')  
+    df = df.sort_values('fecha')  
     df['mes_num'] = range(len(df))
     return df
 
@@ -16,6 +18,7 @@ def prediccion(csv):
         if not all(col in df.columns for col in columna_requerida):
             raise ValueError("El archivo subido no tiene la columna fecha requerida.")
         df = transformar_fechas(df)
+        df = df.drop(columns=['fecha'])
         
         if 'ventas' in df.columns:
             y = df['ventas']
@@ -36,7 +39,8 @@ def prediccion(csv):
             for columna in columnas_extra:
                 df_prediccion[columna] = df[columna].mean()
                 
-            prediccion = modelo_linear.predict(df_prediccion)
+            prediccion = modelo_linear.predict(df_prediccion).round(2)
+            
             
             return pd.DataFrame({
                 'mes_num': nuevas_fechas,
@@ -68,5 +72,5 @@ def prediccion(csv):
                 'prediccion': prediccion
             })
             
-    except:
-        raise ValueError("Error al procesar el archivo CSV.")
+    except Exception as e:
+        raise ValueError(f"Error al procesar el archivo CSV: {str(e)}")
