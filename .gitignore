@@ -21,7 +21,7 @@ Thumbs.db
 # Archivos y carpetas de subida de usuario
 /static/uploads/*
 !/static/uploads/.gitkeep
-/static/plots/*
+app/static/plots/*
 
 # Archivos de base de datos
 *.sqlite3
