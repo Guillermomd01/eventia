@@ -12,6 +12,12 @@ from flask_login import login_required, login_user,current_user,logout_user
 
 from werkzeug.utils import secure_filename
 
+import seaborn as sns
+import matplotlib
+matplotlib.use('Agg')
+
+import matplotlib.pyplot as plt
+
 
 bp = Blueprint('main',__name__)
 
@@ -101,9 +107,10 @@ def logout():
 @bp.route("/dashboard")
 @login_required
 def dashboard():
-    proyectos_usuario = Proyecto.query.filter_by(usuario_id=current_user.id).order_by(Proyecto.fecha.desc())
+    proyectos_usuario = Proyecto.query.filter_by(usuario_id=current_user.id).order_by(Proyecto.fecha.desc()).all()
     
-    return render_template("dashboard.html",user = current_user.nombre,lista_proyectos = proyectos_usuario,)
+    proyectos_ordenados = sorted(proyectos_usuario, key=lambda p: p.estado != "Pendiente")
+    return render_template("dashboard.html",user = current_user.nombre,lista_proyectos = proyectos_ordenados)
 
 @bp.route("/crear-proyecto",methods=['GET','POST'])
 @login_required
@@ -220,6 +227,18 @@ def resultado_modelo_anomalias(dataset_id):
     
     dataset = Dataset.query.get_or_404(dataset_id)
     ruta = os.path.join(current_app.config['UPLOAD_FOLDER'], dataset.ruta_archivo)
-    completo, anomalias = detectar_anomalias(ruta)
+    completo, anomalias,df_grafico = detectar_anomalias(ruta)
+    
+    plt.figure(figsize=(12, 8))
+    grafico = sns.scatterplot(data=df_grafico, x='fecha', y='valores', hue='anomalia')
+    ax = plt.gca()
+    # Rotar las etiquetas del eje x
+    ax.set_xticklabels(ax.get_xticklabels(), rotation=45,ha='right')
+    ruta_grafico = f"app/static/plots/anomalias_{dataset_id}.png"
+    os.makedirs(os.path.dirname(ruta_grafico), exist_ok=True)
+    plt.savefig(ruta_grafico)
+    plt.close()
+    nombre_archivo = f"plots/anomalias_{dataset_id}.png"
 
-    return render_template("resultado_anomalias.html",resultado = anomalias,original=completo)
+
+    return render_template("resultado_anomalias.html",resultado = anomalias,original=completo,grafico=nombre_archivo)

@@ -15,6 +15,7 @@
     {% elif proyecto.tipo == 'sentimiento' %}
         <p>Columna obligatoria : <strong>texto</strong> que contenga texto (comentarios, reseñas, etc.)</p>
     {% else %}
+        <p>La primera columna debe de ser 'fecha'</p>
         <p>Al menos una columna numérica</p>
     {% endif %}
 
