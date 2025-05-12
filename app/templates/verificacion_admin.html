@@ -1,0 +1,34 @@
+
+{% block extra_styles %}
+<link rel="stylesheet" href="{{ url_for ('static', filename='verificacion_admin.css') }}">
+{% endblock %}
+
+{% block content %}
+<div class="formulario">
+    <h1>Verificación de Administrador</h1>
+
+    {% with messages = get_flashed_messages() %}
+        {% if messages %}
+            {% for message in messages %}
+            <div class="flash">{{ message }}</div>
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
+
+    <form method="POST">
+        {{ form.hidden_tag() }}
+
+        <div class="form-group">
+            {{ form.codigo_verificacion.label }}<br>
+            {{ form.codigo_verificacion(class="form-control") }}
+        </div>
+
+        <div class="form-group">
+            {{ form.enviar(class="btn-submit") }}
+        </div>
+    </form>
+    <div class="volver-inicio">
+    <a href="{{ url_for('main.home') }}" class="btn-volver">← Volver al inicio</a>
+    </div>
+</div>
+{% endblock %}

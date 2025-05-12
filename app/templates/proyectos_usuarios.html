@@ -1,0 +1,56 @@
+{% extends 'layout.html' %}
+
+{% block extra_styles %}
+<link rel="stylesheet" href="{{ url_for('static', filename='proyectos_usuarios.css') }}">
+{% endblock %}
+
+{% block content %}
+<div class="contenedor-proyectos">
+    <h2>Proyectos de {{ usuario.nombre }}</h2>
+
+    {% if proyectos %}
+    <table>
+        <thead>
+            <tr>
+                <th>Nombre</th>
+                <th>Tipo</th>
+                <th>Estado</th>
+                <th>Fecha creacion</th>
+                <th>Proyecto</th>
+                <th>Eliminar</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for proyecto in proyectos %}
+            <tr>
+                <td>{{ proyecto.nombre }}</td>
+                <td>{{ proyecto.tipo | capitalize }}</td>
+                <td>{{ proyecto.estado | capitalize }}</td>
+                <td>{{ proyecto.fecha.strftime('%Y-%m-%d') }}</td>
+                <td>{% if proyecto.dataset and proyecto.estado == 'completado' %}
+                    {% if proyecto.tipo == 'sentimiento' %}
+                        <a href="{{ url_for('main.resultado_modelo_sentimiento', dataset_id=proyecto.dataset.id) }}">Ver proyecto</a>
+                    {% elif proyecto.tipo == 'prediccion' %}
+                        <a href="{{ url_for('main.resultado_modelo_prediccion', dataset_id=proyecto.dataset.id) }}">Ver proyecto</a>
+                    {% elif proyecto.tipo == 'anomalias' %}
+                        <a href="{{ url_for('main.resultado_modelo_anomalias', dataset_id=proyecto.dataset.id) }}">Ver proyecto</a>
+                    {% endif %}
+                    {% else %}
+                    <a href="{{ url_for('main.subir_archivo', proyecto_id=proyecto.id) }}">Subir archivo</a>
+                    {% endif %}</td>
+                <td>
+                    <a href="{{ url_for('main.eliminar_proyecto', proyecto_id=proyecto.id) }}">Eliminar proyecto</a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {% else %}
+    <p>No hay proyectos registrados para este usuario.</p>
+    {% endif %}
+
+    <div class="volver-dashboard">
+        <a href="{{ url_for('main.dashboard_admin') }}" class="btn-volver">← Volver al dashboard</a>
+    </div>
+</div>
+{% endblock %}

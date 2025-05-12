@@ -4,11 +4,10 @@ from app.machine_learning.anomalias import detectar_anomalias
 from app.machine_learning.prediccion import prediccion
 from app.machine_learning.sentimiento import analisis_sentimientos
 from app.models import Dataset, Proyecto, Usuario
-from  app.forms import FormularioDataset, FormularioProyecto, FormularioRegistro,FormularioLogin
+from  app.forms import FormularioDataset, FormularioProyecto, FormularioRegistro,FormularioLogin, FormularionVerificacion
 from app.extensions import login,db
 
-from flask import app, current_app, flash, redirect,render_template,Blueprint, url_for
-from flask import current_app
+from flask import app, current_app, flash, redirect,render_template,Blueprint, url_for,session
 from flask_login import login_required, login_user,current_user,logout_user
 
 from werkzeug.utils import secure_filename
@@ -30,6 +29,17 @@ def registro():
             return redirect(url_for('main.registro'))
         nuevo_usuario = Usuario(nombre=form_registro.nombre.data ,email=form_registro.email.data, rol= form_registro.rol.data)
         
+        if form_registro.rol.data == 'admin':
+            
+            session["registro_admin"] = {
+                'nombre': form_registro.nombre.data,
+                'email': form_registro.email.data,
+                'password': form_registro.password.data,
+                'rol': 'Administrador'
+            }
+            
+            return redirect (url_for('main.verificacion'))
+        
         nuevo_usuario.set_password(form_registro.password.data)
         db.session.add(nuevo_usuario)
         db.session.commit()
@@ -38,6 +48,31 @@ def registro():
     
     return render_template("registro_form.html",form= form_registro)
     
+@bp.route("/verificacion-admin",methods=['GET','POST'])
+def verificacion():
+    datos = session.get("registro_admin")
+    if not datos:
+        flash("Acceso no autorizado. Por favor, regístrate primero.")
+        return redirect(url_for('main.registro'))
+    form_verificacion =  FormularionVerificacion()
+    if form_verificacion.validate_on_submit():
+        nuevo_usuario = Usuario(
+            nombre = datos['nombre'],
+            email = datos['email'],
+            rol = datos['rol'])
+        
+        if os.getenv("ADMIN_SECRET") == form_verificacion.codigo_verificacion.data:
+            
+            nuevo_usuario.set_password(datos['password'])
+            db.session.add(nuevo_usuario)
+            db.session.commit()
+            session.pop('registro_admin')
+            login_user(nuevo_usuario)
+            return redirect (url_for('main.dashboard_admin'))
+        else:
+            flash('Contraseña incorrecta, Por favor intentelo de nuevo')
+    return render_template('verificacion_admin.html', form=form_verificacion)
+
 @bp.route("/login",methods=['GET','POST'])
 def login():
     form_login = FormularioLogin()
@@ -46,7 +81,10 @@ def login():
         if usuario:
             if usuario.check_password(form_login.password.data):
                 login_user(usuario) 
-                return redirect('/dashboard')
+                if usuario.rol == "Administrador":
+                    return redirect(url_for('main.dashboard_admin'))
+                else:
+                    return redirect('/dashboard')
             else:
                 flash('Contraseña incorrecta')
         else:
@@ -81,7 +119,7 @@ def nuevo_proyecto():
         db.session.commit()
         return redirect (url_for('main.dashboard'))
     else:
-        flash('Por favor Completa todos los campos corectamente')
+        flash('Por favor completa todos los campos corectamente')
         
         
     return render_template('crear_proyecto.html',form=form_registro)
@@ -125,6 +163,40 @@ def subir_archivo(proyecto_id):
         flash('Por favor introduce valores correctos')
     proyecto = Proyecto.query.get_or_404(proyecto_id)
     return render_template('subir_archivo.html',form=form_archivo,proyecto=proyecto)
+
+@bp.route("/dashboard-admin")
+@login_required
+def dashboard_admin():
+    if current_user.rol != 'Administrador':
+        flash("Acceso restringido a administradores.")
+        return redirect(url_for('main.dashboard'))
+    tabla_usuarios = Usuario.query.filter(Usuario.rol != 'Administrador').order_by(Usuario.id.desc())
+    
+    return render_template("dashboard_admin.html",user=current_user.nombre, tabla_usuarios=tabla_usuarios)
+
+@bp.route("/proyectos-usuarios/<int:usuario_id>")
+@login_required
+def proyectos_usuarios(usuario_id):
+    if current_user.rol != 'Administrador':
+        flash("Acceso restringido a administradores.")
+        return redirect(url_for('main.dashboard'))
+    usuario = Usuario.query.get_or_404(usuario_id)
+    proyectos = Proyecto.query.filter_by(usuario_id=usuario_id).all()
+    
+    return render_template('proyectos_usuarios.html',usuario = usuario,proyectos=proyectos)
+
+#ruta para eliminar las tareas
+@bp.route("/eliminar-proyecto/<int:proyecto_id>")
+@login_required
+def eliminar_proyecto(proyecto_id):
+    proyecto= Proyecto.query.get_or_404(proyecto_id)
+    usuario_id = proyecto.usuario_id
+    
+    if proyecto.dataset:
+        db.session.delete(proyecto.dataset)
+    db.session.delete(proyecto)
+    db.session.commit()
+    return redirect(url_for('main.proyectos_usuarios', usuario_id=usuario_id))
 
 @bp.route("/resultado-prediccion/<int:dataset_id>",methods=['GET','POST'])
 @login_required

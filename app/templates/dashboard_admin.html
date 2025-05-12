@@ -1,0 +1,38 @@
+{% extends 'layout.html' %}
+
+{% block extra_styles %}
+<link rel="stylesheet" href="{{ url_for('static',filename='dashboard_admin.css') }}">
+{% endblock %}
+
+{% block content %}
+    <div class="container">
+        <div class="titulo">
+        <h2>Hola, {{ user }}</h2>
+        <p class="post-titulo">Te encuentras en el Dashboard de adminstrador de EventIA</p>
+        <div class="container-usuarios">
+            <h2>Usuarios de EventIA</h2>
+            <table border="1">
+            <thead>
+                <tr>
+                <th>Nombre</th>
+                <th>Email</th>
+                <th>Rol</th>
+                <th>Proyectos</th>
+                </tr>
+            </thead>
+            <tbody class="lista-usuarios">
+                {% for usuario in tabla_usuarios %}
+                <tr class="usuarios">
+                    <td class="proyecto-individual">{{ usuario.nombre }}</td>
+                    <td>{{ usuario.email }}</td>
+                    <td>{{ usuario.rol | capitalize }}</td>
+                    <td> <a href="{{ url_for('main.proyectos_usuarios', usuario_id=usuario.id) }}" class="btn-ver-proyectos">
+                        Ver proyectos</a></td>
+                </tr>
+                {% endfor %}
+            </tbody>
+            </table>
+        </div>
+        </div>
+    </div>    
+{% endblock %}

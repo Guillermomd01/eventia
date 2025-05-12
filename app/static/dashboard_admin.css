@@ -1,0 +1,76 @@
+
+/* Estilo general del contenedor */
+.container {
+    width: 90%;
+    margin: 40px auto;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* Título y subtítulo */
+.titulo h2 {
+    text-align: center;
+    font-size: 2rem;
+    color: #333;
+}
+
+.post-titulo {
+    text-align: center;
+    font-size: 1.1rem;
+    color: #666;
+    margin-bottom: 30px;
+}
+
+/* Tabla de usuarios */
+.container-usuarios {
+    margin-top: 30px;
+}
+
+.container-usuarios h2 {
+    font-size: 1.5rem;
+    margin-bottom: 15px;
+    color: #444;
+}
+
+/* Tabla */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+}
+
+th, td {
+    padding: 10px;
+    text-align: center;
+}
+
+th {
+    background-color: #4CAF50;
+    color: white;
+    font-weight: bold;
+}
+
+td {
+    background-color: #f9f9f9;
+    border-bottom: 1px solid #ddd;
+}
+
+/* Fila alterna */
+tr:nth-child(even) td {
+    background-color: #f1f1f1;
+}
+
+/* Estilo del botón "Ver proyectos" */
+.btn-ver-proyectos {
+    display: inline-block;
+    padding: 6px 12px;
+    background-color: #4CAF50;
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+    font-weight: bold;
+    transition: background-color 0.3s ease;
+}
+
+.btn-ver-proyectos:hover {
+    background-color: #388e3c;
+}

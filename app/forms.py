@@ -9,6 +9,10 @@ class FormularioRegistro(FlaskForm):
     password = PasswordField('Contraseña',validators=[DataRequired()])
     rol = SelectField(choices=[('admin','Administrador'),('cliente','Cliente')])
     enviar = SubmitField('Registrarme')
+    
+class FormularionVerificacion(FlaskForm):
+    codigo_verificacion = PasswordField( "Contraseña de Administrador", validators=[DataRequired()])
+    enviar = SubmitField('Registrarme como administrador')
 
 class FormularioLogin(FlaskForm):
     email = StringField('email',validators=[DataRequired(),Email()])
