@@ -8,7 +8,8 @@ venv/
 __pycache__/
 *.py[cod]
 *.pyo
-
+app/__pycache__/
+app/machine_learning/__pycache__/
 # Archivos de configuración de editores
 .vscode/
 .idea/
