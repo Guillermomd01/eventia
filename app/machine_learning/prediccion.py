@@ -29,7 +29,7 @@ def prediccion(csv):
             
 
             fecha_max = df['mes_num'].max()
-            nuevas_fechas = list(range(fecha_max+1,fecha_max+16))
+            nuevas_fechas = list(range(fecha_max+1,fecha_max+40))
             columnas_extra = [col for col in X.columns if col != 'mes_num']
             datos ={
                 'mes_num':nuevas_fechas,  
@@ -41,11 +41,11 @@ def prediccion(csv):
                 
             prediccion = modelo_linear.predict(df_prediccion).round(2)
             
-            
-            return pd.DataFrame({
+            df_resultado = pd.DataFrame({
                 'mes_num': nuevas_fechas,
                 'prediccion': prediccion
             })
+            return df, df_resultado
         else:
             y = df.iloc[:,-1]
             X = df.iloc[:,0:-1]
@@ -54,7 +54,7 @@ def prediccion(csv):
             modelo_linear.fit(X,y)
             
             fecha_max = df['mes_num'].max()
-            nuevas_fechas = list(range(fecha_max+1,fecha_max+16))
+            nuevas_fechas = list(range(fecha_max+1,fecha_max+40))
             columnas_extra = [col for col in X.columns if col != 'mes_num']
             
             datos ={
@@ -67,10 +67,11 @@ def prediccion(csv):
                 
             prediccion = modelo_linear.predict(df_prediccion)
             
-            return pd.DataFrame({
+            df_resultado = pd.DataFrame({
                 'mes_num': nuevas_fechas,
                 'prediccion': prediccion
             })
+            return df, df_resultado
             
     except Exception as e:
         raise ValueError(f"Error al procesar el archivo CSV: {str(e)}")

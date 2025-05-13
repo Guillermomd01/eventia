@@ -29,4 +29,8 @@
   {% else %}
     <p>No se encontraron datos de predicción.</p>
   {% endif %}
+  <div class="container-grafico">
+    <h3>Gráfico de Predicción</h3>
+    <img src="{{ url_for('static',filename=grafico) }}" alt="grafico de predicción">
+  </div>
 {% endblock %}

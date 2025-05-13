@@ -36,3 +36,22 @@ p {
     text-align: center;
     color: #666;
 }
+.container-grafico {
+    text-align: center;
+    margin-top: 40px;
+}
+
+.container-grafico h3 {
+    font-size: 1.3rem;
+    margin-bottom: 15px;
+    color: #333;
+}
+
+.container-grafico img {
+    max-width: 85%;
+    height: auto;
+    border: 2px solid #ccc;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    margin-top: 15px;
+}

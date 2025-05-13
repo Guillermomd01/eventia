@@ -212,8 +212,37 @@ def eliminar_proyecto(proyecto_id):
 def resultado_modelo_prediccion(dataset_id):
     dataset = Dataset.query.get_or_404(dataset_id)
     ruta = os.path.join(current_app.config['UPLOAD_FOLDER'], dataset.ruta_archivo)
-    resultado = prediccion(ruta)
-    return render_template("resultado_predicion.html",resultado = resultado) 
+    df,df_resultado = prediccion(ruta)
+    
+    if 'ventas' in df.columns:
+        plt.figure(figsize=(8, 6))
+        grafico1 = sns.lineplot(data=df,x='mes_num',y= 'ventas',label='Datos Reales')
+        grafico2 = sns.lineplot(data=df_resultado, x='mes_num', y='prediccion', label='Predicción')
+        plt.title("Predicción de ventas")
+        plt.axvline(x=df['mes_num'].max(), color='gray', linestyle='--')
+        plt.xticks(rotation=45)
+
+        ruta_grafico = f"app/static/plots/prediccion_{dataset_id}.png"
+        os.makedirs(os.path.dirname(ruta_grafico), exist_ok=True)
+        plt.savefig(ruta_grafico)
+        plt.close()
+        nombre_archivo = f"plots/prediccion_{dataset_id}.png"
+        
+        return render_template("resultado_predicion.html",resultado = df_resultado, grafico=nombre_archivo) 
+    else:
+        plt.figure(figsize=(8, 6))
+        grafico1 = sns.lineplot(data=df,x='fecha',y= df.iloc[:,-1])
+        grafico2 = sns.lineplot(data=df_resultado, x='mes_num', y='prediccion')
+        ax = plt.gca()
+        # Rotar las etiquetas del eje x
+        ax.set_xticklabels(ax.get_xticklabels(), rotation=45,ha='right')
+        ruta_grafico = f"app/static/plots/prediccion_{dataset_id}.png"
+        os.makedirs(os.path.dirname(ruta_grafico), exist_ok=True)
+        plt.savefig(ruta_grafico)
+        plt.close()
+        nombre_archivo = f"plots/prediccion_{dataset_id}.png"
+        
+        return render_template("resultado_predicion.html",resultado = df_resultado,grafico=nombre_archivo)
 
 @bp.route("/resultado-sentimientos/<int:dataset_id>",methods=(['GET','POST']))
 @login_required
