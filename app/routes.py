@@ -16,6 +16,8 @@ import seaborn as sns
 import matplotlib
 matplotlib.use('Agg')
 
+import pandas as pd
+
 import matplotlib.pyplot as plt
 
 
@@ -219,7 +221,18 @@ def resultado_modelo_sentimiento(dataset_id):
     dataset = Dataset.query.get_or_404(dataset_id)
     ruta = os.path.join(current_app.config['UPLOAD_FOLDER'], dataset.ruta_archivo)
     resultado = analisis_sentimientos(ruta)
-    return render_template("resultado_sentimientos.html",resultado = resultado) 
+    
+    df_grafico = pd.DataFrame(list(resultado.items()), columns=["sentimiento", "cantidad"])
+    plt.figure(figsize=(6, 4))
+    grafico = sns.barplot(data=df_grafico, x= 'sentimiento',y='cantidad',hue='cantidad')
+    
+    ruta_grafico = f"app/static/plots/sentimientos_{dataset_id}.png"
+    os.makedirs(os.path.dirname(ruta_grafico), exist_ok=True)
+    plt.savefig(ruta_grafico)
+    plt.close()
+    nombre_archivo = f"plots/sentimientos_{dataset_id}.png"
+    
+    return render_template("resultado_sentimientos.html",resultado = resultado, grafico = nombre_archivo) 
 
 @bp.route("/resultado-anomalias/<int:dataset_id>",methods=(['GET','POST']))
 @login_required

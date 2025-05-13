@@ -46,3 +46,21 @@ h2{
     background-color: #fff3cd; /* amarillo claro */
     color: #856404;
 }
+.contenedor-grafico {
+    text-align: center;
+    margin-top: 40px;
+}
+
+.contenedor-grafico h3 {
+    font-size: 1.3rem;
+    margin-bottom: 15px;
+    color: #333;
+}
+
+.contenedor-grafico img {
+    max-width: 80%;
+    height: auto;
+    border: 2px solid #ccc;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    border-radius: 10px;
+}
