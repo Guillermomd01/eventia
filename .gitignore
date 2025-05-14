@@ -23,6 +23,7 @@ Thumbs.db
 /static/uploads/*
 !/static/uploads/.gitkeep
 app/static/plots/*
+!/static/plots/.gitkeep
 
 # Archivos de base de datos
 *.sqlite3
@@ -46,5 +47,3 @@ instance/
 
 # Archivos CSV de prueba
 *.csv
-
-!*/.gitkeep
