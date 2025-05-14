@@ -46,3 +46,5 @@ instance/
 
 # Archivos CSV de prueba
 *.csv
+
+!*/.gitkeep
