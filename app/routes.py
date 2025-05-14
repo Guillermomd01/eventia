@@ -212,37 +212,42 @@ def eliminar_proyecto(proyecto_id):
 def resultado_modelo_prediccion(dataset_id):
     dataset = Dataset.query.get_or_404(dataset_id)
     ruta = os.path.join(current_app.config['UPLOAD_FOLDER'], dataset.ruta_archivo)
-    df,df_resultado = prediccion(ruta)
     
-    if 'ventas' in df.columns:
-        plt.figure(figsize=(8, 6))
-        grafico1 = sns.lineplot(data=df,x='mes_num',y= 'ventas',label='Datos Reales')
-        grafico2 = sns.lineplot(data=df_resultado, x='mes_num', y='prediccion', label='Predicción')
-        plt.title("Predicción de ventas")
-        plt.axvline(x=df['mes_num'].max(), color='gray', linestyle='--')
-        plt.xticks(rotation=45)
+    df, df_resultado = prediccion(ruta)
 
+    if 'ventas' in df.columns:
+        # Recuperar la última fecha real y añadirla al df_resultado si no existe
+        if 'fecha' not in df.columns:
+            df_original = pd.read_csv(ruta, parse_dates=['fecha'])
+            df['fecha'] = df_original['fecha']
+        
+        if 'fecha' not in df_resultado.columns:
+            ultima_fecha = df['fecha'].max()
+            df_resultado['fecha'] = pd.date_range(start=ultima_fecha + pd.Timedelta(days=1), periods=len(df_resultado))
+        
+        # Crear gráfico
+        plt.figure(figsize=(10, 6))
+        sns.lineplot(data=df, x='fecha', y='ventas', label='Datos Reales')
+        sns.lineplot(data=df_resultado, x='fecha', y='prediccion', label='Predicción')
+        plt.axvline(x=df['fecha'].max(), color='red', linestyle='--', label='Inicio de predicción')
+        plt.xticks(rotation=45)
+        plt.title("Predicción de ventas")
+        plt.xlabel("Fecha")
+        plt.ylabel("Ventas")
+        plt.legend()
+
+        # Guardar imagen
         ruta_grafico = f"app/static/plots/prediccion_{dataset_id}.png"
         os.makedirs(os.path.dirname(ruta_grafico), exist_ok=True)
         plt.savefig(ruta_grafico)
         plt.close()
-        nombre_archivo = f"plots/prediccion_{dataset_id}.png"
         
-        return render_template("resultado_predicion.html",resultado = df_resultado, grafico=nombre_archivo) 
+        nombre_archivo = f"plots/prediccion_{dataset_id}.png"
+        return render_template("resultado_predicion.html", resultado=df_resultado, grafico=nombre_archivo)
+
     else:
-        plt.figure(figsize=(8, 6))
-        grafico1 = sns.lineplot(data=df,x='fecha',y= df.iloc[:,-1])
-        grafico2 = sns.lineplot(data=df_resultado, x='mes_num', y='prediccion')
-        ax = plt.gca()
-        # Rotar las etiquetas del eje x
-        ax.set_xticklabels(ax.get_xticklabels(), rotation=45,ha='right')
-        ruta_grafico = f"app/static/plots/prediccion_{dataset_id}.png"
-        os.makedirs(os.path.dirname(ruta_grafico), exist_ok=True)
-        plt.savefig(ruta_grafico)
-        plt.close()
-        nombre_archivo = f"plots/prediccion_{dataset_id}.png"
-        
-        return render_template("resultado_predicion.html",resultado = df_resultado,grafico=nombre_archivo)
+        flash("No se ha encontrado la columna 'ventas'.")
+        return redirect(url_for('main.dashboard'))
 
 @bp.route("/resultado-sentimientos/<int:dataset_id>",methods=(['GET','POST']))
 @login_required

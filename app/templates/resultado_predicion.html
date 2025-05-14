@@ -17,7 +17,7 @@
         </tr>
       </thead>
       <tbody>
-        {% for row in resultado.values %}
+        {% for row in resultado.head(20).values %}
           <tr>
             {% for val in row %}
               <td>{{ val }}</td>
