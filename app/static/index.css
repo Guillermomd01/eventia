@@ -193,7 +193,7 @@ a { text-decoration: none; }
 
 /* Beneficios */
 .beneficios {
-    background-color: var(--color-bg-dark);
+    background-color: rgb(125, 125, 229);
     color: var(--color-text-light);
     padding: var(--spacing-lg) var(--spacing-sm);
 }
