@@ -11,7 +11,7 @@
 
     {% if proyecto.tipo == 'prediccion' %}
         <p>El archivo CSv solo tiene que contener dos columnas:</p>
-        <p>Columna obligatoria: <strong>fecha</strong></p>
+        <p>Columna obligatoria: <strong>fecha</strong> y en formato: aaaa-mm-dd</p>
         <p>Columna obligatoria: <strong>ventas</strong></p>
     {% elif proyecto.tipo == 'sentimiento' %}
         <p>Columna obligatoria : <strong>texto</strong> que contenga texto (comentarios, reseñas, etc.)</p>
