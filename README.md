@@ -1,7 +1,7 @@
 ## EventIA
 # Agencia de Inteligencia Artificial
 
-Plataforma web que ofrece servicios de análisis de datos mediante modelos de Machine Learning. Desarrollado con Flask, Scikit-learn, Pandas y Seaborn.
+EventIA es una pltaforma web que ofrece servicios de análisis de datos mediante modelos de Machine Learning. Desarrollado con Flask, Scikit-learn, Pandas y Seaborn.
 
 ---
 
